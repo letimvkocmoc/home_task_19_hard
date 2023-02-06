@@ -8,8 +8,8 @@ class GenreService:
     def get_one(self, bid):
         return self.dao.get_one(bid)
 
-    def get_all(self):
-        return self.dao.get_all()
+    def get_all(self, filters):
+        return self.dao.get_all(filters)
 
     def create(self, genre_d):
         return self.dao.create(genre_d)

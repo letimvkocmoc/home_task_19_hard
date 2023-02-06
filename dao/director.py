@@ -1,4 +1,5 @@
 from dao.model.director import Director
+from config import Config
 
 
 class DirectorDAO:
@@ -8,7 +9,14 @@ class DirectorDAO:
     def get_one(self, bid):
         return self.session.query(Director).get(bid)
 
-    def get_all(self):
+    def get_all(self, filter):
+        page = filter.get('page')
+        if page is not None:
+            result = self.session.query(Director).paginate(int(page), Config.ITEMS_PER_PAGE,
+                                                           max_per_page=Config.MAX_PAGE,
+                                                           error_out=False).items
+            return result
+
         return self.session.query(Director).all()
 
     def create(self, director_d):
