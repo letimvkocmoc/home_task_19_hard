@@ -11,6 +11,7 @@ class DirectorDAO:
 
     def get_all(self, filter):
         page = filter.get('page')
+
         if page is not None:
             result = self.session.query(Director).paginate(int(page), Config.ITEMS_PER_PAGE,
                                                            max_per_page=Config.MAX_PAGE,

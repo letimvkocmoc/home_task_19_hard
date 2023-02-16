@@ -10,7 +10,7 @@ movie_ns = Namespace('movies')
 
 @movie_ns.route('/')
 class MoviesView(Resource):
-    #@auth_required
+    @auth_required
     def get(self):
         status = request.args.get("status")
         page = request.args.get("page")
@@ -33,11 +33,13 @@ class MoviesView(Resource):
 
 @movie_ns.route('/<int:bid>')
 class MovieView(Resource):
+    @auth_required
     def get(self, bid):
         b = movie_service.get_one(bid)
         sm_d = MovieSchema().dump(b)
         return sm_d, 200
 
+    @admin_required
     def put(self, bid):
         req_json = request.json
         if "id" not in req_json:
@@ -45,6 +47,7 @@ class MovieView(Resource):
         movie_service.update(req_json)
         return "", 204
 
+    @admin_required
     def delete(self, bid):
         movie_service.delete(bid)
         return "", 204

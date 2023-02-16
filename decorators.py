@@ -5,6 +5,7 @@ from flask_restx import abort
 
 from constants import JWT_SECRET, JWT_ALGORITHM
 
+
 def auth_required(func):
     def wrapper(*args, **kwargs):
 
@@ -21,7 +22,8 @@ def auth_required(func):
 
             return func(*args, **kwargs)
 
-        return wrapper
+    return wrapper
+
 
 def admin_required(func):
     def wrapper(*args, **kwargs):
@@ -46,6 +48,3 @@ def admin_required(func):
         return func(*args, **kwargs)
 
     return wrapper
-
-
-

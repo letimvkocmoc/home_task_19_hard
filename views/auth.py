@@ -25,7 +25,7 @@ class AuthService(Resource):
         req_json = request.json
         access_token = req_json.get("access_token")
         refresh_token = req_json.get("refresh_token")
-        validated = auth_service.validate_tokens((access_token, refresh_token))
+        validated = auth_service.validate_tokens(access_token, refresh_token)
 
         if not validated:
             return 'Invalid token', 400
